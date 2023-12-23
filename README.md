@@ -1,6 +1,6 @@
 # Servicio de Gestión de Clientes
 
-Este proyecto implementa una API REST para la gestión de clientes. Permite a los usuarios realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre los datos de los clientes.
+Este proyecto implementa APIs REST para la gestión de clientes (`person-service`) y cuentas (`account-service`). Permite a los usuarios realizar operaciones CRUD sobre los datos de los clientes y sus cuentas asociadas.
 
 ## Requisitos
 
@@ -16,7 +16,7 @@ Para ejecutar el proyecto usando Docker Compose, sigue estos pasos:
 - Ubícate en la raíz del proyecto donde se encuentra el archivo `docker-compose.yml`.
 - Ejecuta el siguiente comando para construir y levantar los servicios:
     ```bash
-    docker-compose up --build
+    docker-compose up
     ```
 - Los servicios estarán disponibles en los siguientes puertos:
   - Person Service: http://localhost:8080
