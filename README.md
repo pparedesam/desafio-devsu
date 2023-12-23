@@ -22,6 +22,38 @@ Para ejecutar el proyecto usando Docker Compose, sigue estos pasos:
   - Person Service: http://localhost:8080
   - Account Service: http://localhost:8081
 
+# Instrucciones para Pruebas con Postman
+
+Para probar la API con Postman, sigue estos pasos:
+
+1. Importa el archivo de colección de Postman (`Postulacion.postman_collection.json`) en tu instancia de Postman.
+
+2. Antes de realizar solicitudes, debes configurar dos variables globales en Postman para apuntar a los servicios locales:
+
+    - `local-account`: Se utiliza para las solicitudes relacionadas con cuentas y debe tener el valor `http://localhost:8081`.
+    - `local-person`: Se utiliza para las solicitudes relacionadas con clientes y debe tener el valor `http://localhost:8080`.
+
+   Estas variables se usan en la colección de Postman para referenciar los endpoints de los servicios correspondientes.
+
+3. Para configurar las variables globales, sigue estos pasos:
+
+    a. Haz clic en el icono de "Environments" (que parece un ojo) en la parte superior derecha de la ventana de Postman.
+    
+    b. En la sección "Globals" que aparece a la derecha, agrega las siguientes variables:
+    
+        | Variable       | Initial Value            | Current Value           |
+        |----------------|--------------------------|-------------------------|
+        | local-account  | http://localhost:8081    | http://localhost:8081   |
+        | local-person   | http://localhost:8080    | http://localhost:8080   |
+
+    c. Asegúrate de que las variables estén marcadas como "enabled" (activadas) y luego cierra la ventana de "Environments".
+
+   ![image](https://github.com/pparedesam/desafio-devsu/assets/18691981/5d259c09-1594-4946-96c2-0b5ced09a71b)
+
+
+5. Ahora puedes usar la colección de Postman para enviar solicitudes a tu API local. Las variables `{{local-account}}` y `{{local-person}}` se sustituirán automáticamente por las URL correspondientes a los servicios de cuentas y clientes.
+
+
 ## Endpoints de Person Service
 
 ### 1. Crear Cliente: `POST /v1/client`
