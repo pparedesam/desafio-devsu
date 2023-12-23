@@ -1,13 +1,35 @@
-#Genera el dockerfile para dockerizar la aplicacion con java 17
-FROM openjdk:17-jdk-alpine
-#Crea el directorio de trabajo
-WORKDIR /app
-#Copia el jar generado en el paso anterior
-COPY build/libs/*.jar app.jar
+# Etapa de construcción
+# Use the official image as a parent image
+FROM openjdk:17-slim as builder
 
-# Exponer el puerto en el que se ejecutará la aplicación
-EXPOSE 8081
+# Set the working directory in the builder container
+WORKDIR /usr/src/app
 
-#Ejecuta el jar
-ENTRYPOINT ["java","-jar","app.jar"]
+# Copy the source code from your local host to the builder container
+COPY . .
 
+# Convert gradlew to Unix format and make it executable
+RUN sed -i 's/\r//' gradlew && chmod +x gradlew
+
+# Build the application without running tests
+RUN ./gradlew build -x test
+
+# Etapa de ejecución
+# Use the official image as a parent image for the runtime stage
+FROM openjdk:17-slim
+
+# Set the working directory in the new container to /usr/src/app
+WORKDIR /usr/src/app
+
+# Copy the built jar file from the builder stage
+COPY --from=builder /usr/src/app/build/libs/*.jar ./app.jar
+
+# Copiar el script de espera (asegúrate de tener este archivo en tu contexto de construcción)
+COPY wait-for-db.sh /wait-for-db.sh
+
+# Dar permisos de ejecución al script
+RUN chmod +x /wait-for-db.sh
+
+# Set the default command to run your application
+# Utiliza el script de espera antes de iniciar la aplicación
+CMD ["java", "-jar", "./app.jar"]
