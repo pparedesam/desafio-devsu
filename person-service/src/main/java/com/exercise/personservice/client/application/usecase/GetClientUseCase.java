@@ -17,6 +17,6 @@ public class GetClientUseCase  implements GetClientPort
     @Override
     public ClientResponseDto findById(Long idClient) {
         Client client = getClientRepository.findById(idClient);
-        return ClientMapper.clientToClientDto(client);
+        return ClientMapper.clientToClientResponseDto(client);
     }
 }

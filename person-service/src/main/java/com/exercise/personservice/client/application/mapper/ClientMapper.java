@@ -18,7 +18,7 @@ public class ClientMapper {
                 .build();
     }
 
-    public static ClientResponseDto clientToClientDto(Client client) {
+    public static ClientResponseDto clientToClientResponseDto(Client client) {
 
         return new ClientResponseDto(
                 client.getId(),

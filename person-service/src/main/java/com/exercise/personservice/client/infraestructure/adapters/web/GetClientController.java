@@ -25,8 +25,8 @@ public class GetClientController {
     private GetClientByNamePort getClientByNamePort;
 
     @GetMapping()
-    public ResponseEntity<List<Client>>  getClients(){
-        List<Client> clients = getClientsPort.execute();
+    public ResponseEntity<List<ClientResponseDto>>  getClients(){
+        List<ClientResponseDto> clients = getClientsPort.execute();
         return ResponseEntity.ok(clients);
     }
 

@@ -7,6 +7,7 @@ import com.exercise.personservice.client.domain.entities.Client;
 import com.exercise.personservice.client.domain.repository.GetClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 @Service
 public class GetClienteByNameUseCase implements GetClientByNamePort {
@@ -15,7 +16,8 @@ public class GetClienteByNameUseCase implements GetClientByNamePort {
     @Override
     public ClientResponseDto findByName(String name) {
 
-        Client client = getClientRepository.findByName(name);
-       return ClientMapper.clientToClientDto(client);
+       Client client = getClientRepository.findByName(name);
+       if(ObjectUtils.isEmpty(client)) return null;
+       return ClientMapper.clientToClientResponseDto(client);
     }
 }
